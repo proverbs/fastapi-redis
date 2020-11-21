@@ -1,0 +1,3 @@
+FROM bash
+
+COPY ./resources/wait-for-it.sh /

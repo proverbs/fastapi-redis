@@ -1,0 +1,7 @@
+FROM postgres:9.3
+
+ENV POSTGRES_USER docker
+ENV POSTGRES_PASSWORD docker
+ENV POSTGRES_DB key_value_db
+
+ADD ./resources/create_table.sql /docker-entrypoint-initdb.d/

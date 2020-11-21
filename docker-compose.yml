@@ -4,11 +4,20 @@ services:
     image: fastapi-app
     ports:
       - "8000:80"
-  # db:
-  #   image: postgres
-  #   ports:
-  #     - "8001:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=key_value_db
+    depends_on:
+      - "waitforit-db"
+      - "waitforit-redis"
+  db:
+    image: postgres-db
   redis:
     image: "redis:alpine"
-    ports:
-      - "6379:6379"
+  waitforit-db:
+    image: wait-for-it
+    command: ["./wait-for-it.sh", "db:5432", "-t", "30"]
+  waitforit-redis:
+    image: wait-for-it
+    command: ["./wait-for-it.sh", "redis:6379", "-t", "30"]

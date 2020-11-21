@@ -2,4 +2,4 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.6
 
 COPY ./src/app /app
 
-RUN python -m pip install redis
+RUN python -m pip install redis psycopg2 pydantic
