@@ -1,5 +1,10 @@
 # fastapi-redis
-A local cache for fastapi
+
+A local cache for fastapi.
+This demo only caches for `GET` requests.
+To refresh the cache, you need to trigger `/clear_cache` manually or to use `Lambda` to trigger it periodically.
+
+Thus, the use cases this design can optimize are limited: as a service, it always gets the same `GET` request and spends quite a long time fetching data from database (or other remote services).
 
 ## How to use
 
