@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  web:
+    image: fastapi-app
+    ports:
+      - "8000:80"
+  # db:
+  #   image: postgres
+  #   ports:
+  #     - "8001:5432"
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
