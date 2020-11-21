@@ -52,7 +52,13 @@ def get_value_by_key_from_db(key: str):
 
 @app.get("/key_values/{key}")
 def get_key_value(key: str):
-    value = get_value_by_key_from_db(key)
+    value = cache.get(key)
+    if not value:
+        value = get_value_by_key_from_db(key)
+
+    if value:
+        cache.set(key, value)
+
     return {"key": key, "value": value}
 
 
@@ -83,3 +89,12 @@ def update_value_by_key_to_db(key: str, value: str):
 def update_value_by_key(key: str, kv: KeyValue):
     update_value_by_key_to_db(key, kv.value)
     return kv
+
+
+@app.post("/clear_cache")
+def clear_cache():
+    count = 0
+    for key in cache.scan_iter():
+        cache.delete(key)
+        count += 1
+    return {"count": count}
